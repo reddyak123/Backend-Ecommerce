@@ -15,19 +15,10 @@ app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/cart', cartRoutes);
 
-const startServer = async () => {
-  try {
-    // create tables
-    await initializeDatabase();
-    
-    // Start the server
-    app.listen(port, () => {
-      console.log(`Server running on port ${port}`);
-    });
-  } catch (error) {
-    console.error('Failed to start server:', error);
-    process.exit(1);
-  }
+const createTables = async () => {
+await initializeDatabase();
 };
 
-startServer();
+createTables();
+
+module.exports = app;
