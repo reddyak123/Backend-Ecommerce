@@ -21,4 +21,5 @@ await initializeDatabase();
 
 createTables();
 
-module.exports = app;
+app.listen(port, ()=>{console.log(`running on ${port}`)});
+// module.exports = app;

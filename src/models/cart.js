@@ -15,9 +15,39 @@ const removeFromCart = async (userId, cartItemId) => {
 };
 
 const getCartByUserId = async (userId) => {
-  const query = 'SELECT * FROM cart WHERE user_id = $1';
-  const result = await db.query(query, [userId]);
-  return result.rows;
+  try {
+    console.log("before query");
+    const query = `
+      SELECT 
+        cart.id AS cart_id,
+        cart.user_id,
+        cart.product_id,
+        cart.created_at,
+        cart.updated_at,
+        products.name AS product_name,
+        products.description,
+        products.price,
+        products.category,
+        products.seller_id,
+        products.discount
+      FROM 
+        cart
+      INNER JOIN 
+        products
+      ON 
+        cart.product_id = products.id
+      WHERE 
+        cart.user_id = $1
+    `;
+    console.log("after query");
+    const result = await db.query(query, [userId]);
+    return result.rows;
+  } catch (error) {
+    console.error("Error executing query:", error);
+    throw error;
+  }
 };
+
+
 
 module.exports = { addToCart, removeFromCart, getCartByUserId };

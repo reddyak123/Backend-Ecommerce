@@ -68,12 +68,19 @@ const getProductsByName = async (name) => {
   return result.rows;
 };
 
+const getProducts = async()=>{
+  const query = 'SELECT * FROM products';
+  const result = await db.query(query);
+  return result.rows;
+}
+
 module.exports = { 
   createProduct, 
   getProductsByCategory, 
   getProductsByName, 
   updateProduct, 
   deleteProduct,
-  getProductById
+  getProductById,
+  getProducts
 };
 

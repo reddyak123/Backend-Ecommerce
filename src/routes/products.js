@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { authenticate, isSeller } = require('../middlewares/auth');
-const { createProduct, deleteProduct, updateProduct, getProductsByCategory, getProductsByName,getProductById } = require('../models/product');
+const { createProduct, deleteProduct, updateProduct, getProductsByCategory, getProductsByName,getProductById, getProducts } = require('../models/product');
 
 router.use(authenticate);
 
@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
     } else if (name) {
       products = await getProductsByName(name);
     } else {
-      return res.status(400).json({ error: 'Please provide either category or name query parameter' });
+      products = await getProducts();
     }
     
     res.json(products);

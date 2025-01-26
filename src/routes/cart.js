@@ -35,9 +35,11 @@ router.delete('/:id', async (req, res) => {
 
 router.get('/', async (req, res) => {
   try {
+    console.log("hey fukc offf ");
     const cart = await getCartByUserId(req.user.id);
     res.json(cart);
   } catch (error) {
+    console.log("fuck off ");
     res.status(500).json({ error: 'Server error' });
   }
 });
